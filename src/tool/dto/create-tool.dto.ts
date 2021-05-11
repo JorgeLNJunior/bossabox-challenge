@@ -5,6 +5,10 @@ export class CreateToolDto {
   @IsNotEmpty()
   title: string;
 
+  @IsString()
+  @IsNotEmpty()
+  description: string;
+
   @IsNotEmpty()
   @IsUrl()
   link: string;

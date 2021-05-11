@@ -9,6 +9,9 @@ export class Tool {
   title: string;
 
   @Prop()
+  description: string;
+
+  @Prop()
   link: string;
 
   @Prop([String])
