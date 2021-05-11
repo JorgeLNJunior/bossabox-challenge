@@ -16,8 +16,13 @@ export class ToolController {
   constructor(private readonly toolService: ToolService) {}
 
   @Post()
-  create(@Body() createToolDto: CreateToolDto) {
-    return this.toolService.create(createToolDto);
+  async create(@Body() createToolDto: CreateToolDto) {
+    const tool = await this.toolService.create(createToolDto);
+
+    return {
+      status: 201,
+      tool: tool,
+    };
   }
 
   @Get()
