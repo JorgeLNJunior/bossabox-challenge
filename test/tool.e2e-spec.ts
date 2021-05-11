@@ -41,6 +41,16 @@ describe('ToolController (e2e)', () => {
     expect(body).toHaveProperty('error');
   });
 
+  it('/tools (POST) should not create a tool without a description', async () => {
+    const tool = TooBuiler.aTool().withoutDescription().build();
+    const { status, body } = await request(app.getHttpServer())
+      .post('/tools')
+      .send(tool);
+
+    expect(status).toBe(400);
+    expect(body).toHaveProperty('error');
+  });
+
   it('/tools (POST) should not create a tool without a link', async () => {
     const tool = TooBuiler.aTool().withoutLink().build();
     const { status, body } = await request(app.getHttpServer())

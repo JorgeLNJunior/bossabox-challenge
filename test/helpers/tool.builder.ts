@@ -4,6 +4,7 @@ export class TooBuiler {
   private tool: FakeTool = {
     title: faker.lorem.words(2),
     link: faker.internet.url(),
+    description: faker.lorem.words(4),
     tags: [faker.lorem.word(4), faker.lorem.word(4)],
   };
 
@@ -13,6 +14,11 @@ export class TooBuiler {
 
   withoutTitle() {
     delete this.tool.title;
+    return this;
+  }
+
+  withoutDescription() {
+    delete this.tool.description;
     return this;
   }
 
@@ -33,6 +39,7 @@ export class TooBuiler {
 
 interface FakeTool {
   title?: string;
+  description?: string;
   link?: string;
   tags?: string[];
 }
