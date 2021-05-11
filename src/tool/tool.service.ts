@@ -1,11 +1,17 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { CreateToolDto } from './dto/create-tool.dto';
 import { UpdateToolDto } from './dto/update-tool.dto';
+import { Tool, ToolDocument } from './schemas/tool.schema';
 
 @Injectable()
 export class ToolService {
-  create(createToolDto: CreateToolDto) {
-    return 'This action adds a new tool';
+  constructor(@InjectModel(Tool.name) private toolModel: Model<ToolDocument>) {}
+
+  async create(createToolDto: CreateToolDto): Promise<Tool> {
+    const tool = new this.toolModel(createToolDto);
+    return tool.save();
   }
 
   findAll() {
