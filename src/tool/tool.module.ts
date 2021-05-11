@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
-import { ToolService } from './tool.service';
-import { ToolController } from './tool.controller';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ToolSchema, Tool } from './schemas/tool.schema';
+
+import { Tool, ToolSchema } from './schemas/tool.schema';
+import { ToolController } from './tool.controller';
+import { ToolService } from './tool.service';
 
 @Module({
   imports: [
