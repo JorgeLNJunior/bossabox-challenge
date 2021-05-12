@@ -4,6 +4,8 @@ import { Model } from 'mongoose';
 
 import { CreateToolDto } from './dto/create-tool.dto';
 import { UpdateToolDto } from './dto/update-tool.dto';
+import { ToolQuery } from './query/toolQuery.interface';
+import { ToolQueryBuilder } from './query/toolQueryBuilder';
 import { Tool, ToolDocument } from './schemas/tool.schema';
 
 @Injectable()
@@ -15,8 +17,12 @@ export class ToolService {
     return tool.save();
   }
 
-  findAll(): Promise<Tool[]> {
-    return this.toolModel.find().exec();
+  findAll(query: ToolQuery): Promise<Tool[]> {
+    const filter = new ToolQueryBuilder(query).build();
+
+    return this.toolModel
+      .find(filter, null, { limit: Number(query.limit) || 3 })
+      .exec();
   }
 
   findOne(id: number) {

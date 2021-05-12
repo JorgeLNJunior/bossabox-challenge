@@ -6,10 +6,12 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 
 import { CreateToolDto } from './dto/create-tool.dto';
 import { UpdateToolDto } from './dto/update-tool.dto';
+import { ToolQuery } from './query/toolQuery.interface';
 import { ToolService } from './tool.service';
 
 @Controller('tools')
@@ -27,8 +29,8 @@ export class ToolController {
   }
 
   @Get()
-  async findAll() {
-    const tools = await this.toolService.findAll();
+  async findAll(@Query() query: ToolQuery) {
+    const tools = await this.toolService.findAll(query);
 
     return {
       status: 200,
