@@ -20,7 +20,7 @@ export class ToolService {
     const filter = new ToolQueryBuilder(query).build();
 
     return this.toolModel
-      .find(filter, null, { limit: Number(query.limit) || 3 })
+      .find(filter, null, { limit: Number(query.limit) || 20 })
       .exec();
   }
 
