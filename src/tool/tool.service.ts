@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
@@ -33,7 +33,10 @@ export class ToolService {
     return `This action updates a #${id} tool`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} tool`;
+  async remove(id: string) {
+    const tool = await this.toolModel.findOne({ _id: id }).exec();
+    if (!tool) throw new BadRequestException(undefined, 'tool not found');
+
+    await this.toolModel.deleteOne({ _id: id });
   }
 }

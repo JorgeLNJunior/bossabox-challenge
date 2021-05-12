@@ -49,7 +49,12 @@ export class ToolController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.toolService.remove(+id);
+  async remove(@Param('id') id: string) {
+    await this.toolService.remove(id);
+
+    return {
+      status: 200,
+      message: 'tool deleted',
+    };
   }
 }
