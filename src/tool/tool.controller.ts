@@ -4,13 +4,11 @@ import {
   Delete,
   Get,
   Param,
-  Patch,
   Post,
   Query,
 } from '@nestjs/common';
 
 import { CreateToolDto } from './dto/create-tool.dto';
-import { UpdateToolDto } from './dto/update-tool.dto';
 import { ToolQuery } from './query/toolQuery.interface';
 import { ToolService } from './tool.service';
 
@@ -36,16 +34,6 @@ export class ToolController {
       status: 200,
       tools: tools,
     };
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.toolService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateToolDto: UpdateToolDto) {
-    return this.toolService.update(+id, updateToolDto);
   }
 
   @Delete(':id')

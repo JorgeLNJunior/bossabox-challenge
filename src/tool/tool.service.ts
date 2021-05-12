@@ -3,7 +3,6 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
 import { CreateToolDto } from './dto/create-tool.dto';
-import { UpdateToolDto } from './dto/update-tool.dto';
 import { ToolQuery } from './query/toolQuery.interface';
 import { ToolQueryBuilder } from './query/toolQueryBuilder';
 import { Tool, ToolDocument } from './schemas/tool.schema';
@@ -23,14 +22,6 @@ export class ToolService {
     return this.toolModel
       .find(filter, null, { limit: Number(query.limit) || 3 })
       .exec();
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} tool`;
-  }
-
-  update(id: number, updateToolDto: UpdateToolDto) {
-    return `This action updates a #${id} tool`;
   }
 
   async remove(id: string) {
