@@ -14,6 +14,7 @@ export class ToolQueryBuilder {
   build() {
     if (this.query.tag) this.filter.tags = this.query.tag;
     if (this.query.title) this.filter.title = this.query.title;
+    if (this.query._id) this.filter._id = this.query._id;
     return this.filter;
   }
 }
