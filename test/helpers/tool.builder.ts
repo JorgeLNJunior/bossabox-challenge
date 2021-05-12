@@ -1,7 +1,7 @@
 import * as faker from 'faker';
 import { connect, connection, model } from 'mongoose';
 
-import { Tool, ToolSchema } from '../../src/tool/schemas/tool.schema';
+import { Tool, ToolSchema } from '../../src/modules/tool/schemas/tool.schema';
 
 export class TooBuiler {
   private tool: FakeTool = {

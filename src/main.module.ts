@@ -4,7 +4,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 
-import { ToolModule } from './tool/tool.module';
+import { ToolModule } from './modules/tool/tool.module';
 
 @Module({
   imports: [
