@@ -3,7 +3,7 @@ import { Document } from 'mongoose';
 
 export type ToolDocument = Tool & Document;
 
-@Schema()
+@Schema({ versionKey: false })
 export class Tool {
   @Prop()
   title: string;
