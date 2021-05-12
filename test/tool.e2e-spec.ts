@@ -71,4 +71,11 @@ describe('ToolController (e2e)', () => {
     expect(status).toBe(400);
     expect(body).toHaveProperty('error');
   });
+
+  it('/tools (GET) should return a list of tools', async () => {
+    const { status, body } = await request(app.getHttpServer()).get('/tools');
+
+    expect(status).toBe(200);
+    expect(body).toHaveProperty('tools');
+  });
 });

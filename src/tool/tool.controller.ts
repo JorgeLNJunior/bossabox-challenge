@@ -27,8 +27,13 @@ export class ToolController {
   }
 
   @Get()
-  findAll() {
-    return this.toolService.findAll();
+  async findAll() {
+    const tools = await this.toolService.findAll();
+
+    return {
+      status: 200,
+      tools: tools,
+    };
   }
 
   @Get(':id')

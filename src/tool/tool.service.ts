@@ -15,8 +15,8 @@ export class ToolService {
     return tool.save();
   }
 
-  findAll() {
-    return `This action returns all tool`;
+  findAll(): Promise<Tool[]> {
+    return this.toolModel.find().exec();
   }
 
   findOne(id: number) {
