@@ -1,4 +1,7 @@
 import * as faker from 'faker';
+import { connect, connection, model } from 'mongoose';
+
+import { Tool, ToolSchema } from '../../src/tool/schemas/tool.schema';
 
 export class TooBuiler {
   private tool: FakeTool = {
@@ -34,6 +37,20 @@ export class TooBuiler {
 
   build(): FakeTool {
     return this.tool;
+  }
+
+  async persist() {
+    await connect(process.env.MONGO_URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+
+    const Model = model(Tool.name, ToolSchema);
+    const tool = await new Model(this.tool).save();
+
+    await connection.close();
+
+    return tool;
   }
 }
 

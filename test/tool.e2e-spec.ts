@@ -78,4 +78,26 @@ describe('ToolController (e2e)', () => {
     expect(status).toBe(200);
     expect(body).toHaveProperty('tools');
   });
+
+  it('/tools (DELETE) should delete an tool', async () => {
+    const { _id } = await TooBuiler.aTool().persist();
+
+    const { status, body } = await request(app.getHttpServer()).delete(
+      `/tools/${_id}`,
+    );
+
+    expect(status).toBe(200);
+    expect(body).toHaveProperty('message');
+  });
+
+  it('/tools (DELETE) should return an error if the tool was not found', async () => {
+    const id = '609c2b58724a182c5711d9bc';
+
+    const { status, body } = await request(app.getHttpServer()).delete(
+      `/tools/${id}`,
+    );
+
+    expect(status).toBe(400);
+    expect(body).toHaveProperty('message');
+  });
 });
