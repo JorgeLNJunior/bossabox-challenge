@@ -1,7 +1,7 @@
 import { FilterQuery } from 'mongoose';
 
 import { ToolDocument } from '../schemas/tool.schema';
-import { ToolQuery } from './toolQuery.interface';
+import { ToolQuery } from './toolQuery';
 
 export class ToolQueryBuilder {
   private filter: FilterQuery<ToolDocument> = {};
