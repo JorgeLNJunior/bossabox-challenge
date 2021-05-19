@@ -28,9 +28,6 @@ export class ToolController {
   @ApiCreatedResponse({ description: 'the tool has been created' })
   @ApiBadRequestResponse({ description: 'validation error' })
   @ApiTooManyRequestsResponse({ description: 'too many requests' })
-  @ApiQuery({
-    type: ToolQuery,
-  })
   @Post()
   async create(@Body() createToolDto: CreateToolDto) {
     const tool = await this.toolService.create(createToolDto);
@@ -43,6 +40,9 @@ export class ToolController {
 
   @ApiOkResponse({ description: 'return a list of tools' })
   @ApiTooManyRequestsResponse({ description: 'too many requests' })
+  @ApiQuery({
+    type: ToolQuery,
+  })
   @Get()
   async findAll(@Query() query: ToolQuery) {
     const tools = await this.toolService.findAll(query);
