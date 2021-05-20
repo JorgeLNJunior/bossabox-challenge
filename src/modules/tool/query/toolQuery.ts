@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsOptional } from 'class-validator';
+import { IsNumberString, IsOptional } from 'class-validator';
 
 export class ToolQuery {
   @ApiProperty({ required: false })
@@ -16,5 +16,6 @@ export class ToolQuery {
 
   @ApiProperty({ required: false })
   @IsOptional()
+  @IsNumberString()
   limit?: string;
 }
