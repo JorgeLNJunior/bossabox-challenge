@@ -4,6 +4,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 
+import { mongoConstants } from './config/constants';
 import { AuthModule } from './modules/auth/auth.module';
 import { ToolModule } from './modules/tool/tool.module';
 import { UserModule } from './modules/user/user.module';
@@ -13,7 +14,7 @@ import { UserModule } from './modules/user/user.module';
     ToolModule,
     UserModule,
     ConfigModule.forRoot({ isGlobal: true }),
-    MongooseModule.forRoot(process.env.MONGO_URL, {
+    MongooseModule.forRoot(mongoConstants.uri, {
       useCreateIndex: true,
       useNewUrlParser: true,
     }),
