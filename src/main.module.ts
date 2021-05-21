@@ -13,7 +13,10 @@ import { UserModule } from './modules/user/user.module';
     ToolModule,
     UserModule,
     ConfigModule.forRoot({ isGlobal: true }),
-    MongooseModule.forRoot(process.env.MONGO_URL),
+    MongooseModule.forRoot(process.env.MONGO_URL, {
+      useCreateIndex: true,
+      useNewUrlParser: true,
+    }),
     ThrottlerModule.forRoot({
       ttl: 60,
       limit: 15,
