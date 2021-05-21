@@ -6,6 +6,8 @@ import {
   MinLength,
 } from 'class-validator';
 
+import { IsEmailAlreadyInUse } from '../decorators/isEmailAlreadyInUse';
+
 export class CreateUserDto {
   @IsNotEmpty()
   @IsString()
@@ -13,6 +15,7 @@ export class CreateUserDto {
 
   @IsNotEmpty()
   @IsEmail()
+  @IsEmailAlreadyInUse()
   email: string;
 
   @IsNotEmpty()

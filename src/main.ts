@@ -1,6 +1,7 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { useContainer } from 'class-validator';
 import * as expressWinston from 'express-winston';
 import * as helmet from 'helmet';
 import * as winston from 'winston';
@@ -9,6 +10,8 @@ import { MainModule } from './main.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(MainModule);
+
+  useContainer(app.select(MainModule), { fallbackOnErrors: true });
 
   const config = new DocumentBuilder()
     .setTitle('Very Useful Tools to Remember')

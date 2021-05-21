@@ -12,7 +12,7 @@ import { User, UserDocument } from './schemas/user.schema';
 export class UserService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
-  async create(createUserDto: CreateUserDto): Promise<User> {
+  async create(createUserDto: CreateUserDto): Promise<UserDocument> {
     const hash = await bcrypt.hash(createUserDto.password, 10);
     createUserDto.password = hash;
 
@@ -20,10 +20,14 @@ export class UserService {
     return user.save();
   }
 
-  async findAll(query: UserQuery): Promise<User[]> {
+  async findAll(query: UserQuery): Promise<UserDocument[]> {
     const filter = new UserQueryBuilder(query).build();
     return this.userModel
       .find(filter, null, { limit: Number(query.limit) || 20 })
       .exec();
+  }
+
+  async findByEmail(email: string): Promise<UserDocument | undefined> {
+    return this.userModel.findOne({ email: email }).exec();
   }
 }
