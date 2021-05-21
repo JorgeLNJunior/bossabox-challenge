@@ -6,7 +6,10 @@ import {
   Param,
   Post,
   Query,
+  Request,
+  UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
@@ -25,12 +28,13 @@ import { ToolService } from './tool.service';
 export class ToolController {
   constructor(private readonly toolService: ToolService) {}
 
+  @UseGuards(AuthGuard('jwt'))
   @ApiCreatedResponse({ description: 'the tool has been created' })
   @ApiBadRequestResponse({ description: 'validation error' })
   @ApiTooManyRequestsResponse({ description: 'too many requests' })
   @Post()
-  async create(@Body() createToolDto: CreateToolDto) {
-    const tool = await this.toolService.create(createToolDto);
+  async create(@Body() createToolDto: CreateToolDto, @Request() req) {
+    const tool = await this.toolService.create(createToolDto, req.user._id);
 
     return {
       status: 201,

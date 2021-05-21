@@ -2,6 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
+import { UserService } from '../user/user.service';
 import { CreateToolDto } from './dto/create-tool.dto';
 import { ToolQuery } from './query/toolQuery';
 import { ToolQueryBuilder } from './query/toolQueryBuilder';
@@ -9,14 +10,23 @@ import { Tool, ToolDocument } from './schemas/tool.schema';
 
 @Injectable()
 export class ToolService {
-  constructor(@InjectModel(Tool.name) private toolModel: Model<ToolDocument>) {}
+  constructor(
+    @InjectModel(Tool.name) private toolModel: Model<ToolDocument>,
+    private userService: UserService,
+  ) {}
 
-  async create(createToolDto: CreateToolDto): Promise<Tool> {
-    const tool = new this.toolModel(createToolDto);
+  async create(createToolDto: CreateToolDto, userId: string): Promise<Tool> {
+    const owner = await this.userService.findById(userId);
+    if (!owner) throw new BadRequestException(undefined, 'user not found');
+
+    const tool = new this.toolModel({
+      ...createToolDto,
+      owner: owner,
+    });
     return tool.save();
   }
 
-  findAll(query: ToolQuery): Promise<Tool[]> {
+  findAll(query: ToolQuery): Promise<ToolDocument[]> {
     const filter = new ToolQueryBuilder(query).build();
 
     return this.toolModel

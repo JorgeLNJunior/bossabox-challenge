@@ -1,5 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import * as mongoose from 'mongoose';
+import { User } from 'src/modules/user/schemas/user.schema';
 
 export type ToolDocument = Tool & Document;
 
@@ -16,6 +18,9 @@ export class Tool {
 
   @Prop([String])
   tags: string[];
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
+  owner: User;
 }
 
 export const ToolSchema = SchemaFactory.createForClass(Tool);

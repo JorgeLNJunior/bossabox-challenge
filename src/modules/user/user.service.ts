@@ -30,4 +30,8 @@ export class UserService {
   async findByEmail(email: string): Promise<UserDocument | undefined> {
     return this.userModel.findOne({ email: email }).exec();
   }
+
+  async findById(id: string): Promise<UserDocument | undefined> {
+    return this.userModel.findOne({ _id: id }).exec();
+  }
 }
