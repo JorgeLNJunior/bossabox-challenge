@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ForbiddenException,
+  Injectable,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
@@ -34,10 +38,15 @@ export class ToolService {
       .exec();
   }
 
-  async remove(id: string) {
-    const tool = await this.toolModel.findOne({ _id: id }).exec();
+  async remove(toolId: string, userId: string) {
+    const tool = await this.toolModel.findOne({ _id: toolId }).exec();
+
     if (!tool) throw new BadRequestException(undefined, 'tool not found');
 
-    await this.toolModel.deleteOne({ _id: id });
+    const isToolOwner = tool.user_id === userId;
+    if (!isToolOwner)
+      throw new ForbiddenException(undefined, 'you are not the tool owner');
+
+    await this.toolModel.deleteOne({ _id: toolId });
   }
 }

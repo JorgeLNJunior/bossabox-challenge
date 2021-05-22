@@ -63,8 +63,8 @@ export class ToolController {
   @ApiTooManyRequestsResponse({ description: 'too many requests' })
   @UseGuards(AuthGuard('jwt'))
   @Delete(':id')
-  async remove(@Param('id') id: string) {
-    await this.toolService.remove(id);
+  async remove(@Param('id') id: string, @Request() req) {
+    await this.toolService.remove(id, req.user._id);
 
     return {
       status: 200,
