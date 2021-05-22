@@ -7,8 +7,10 @@ import {
   ApiTags,
   ApiTooManyRequestsResponse,
 } from '@nestjs/swagger';
+import { TooManyRequestsResponse } from 'src/shared/responses/tooManyRequests.response';
 
 import { UserQuery } from './query/userQuery';
+import { GetUsersResponse } from './responses/getUsers.response';
 import { UserService } from './user.service';
 
 @ApiBearerAuth()
@@ -20,16 +22,19 @@ export class UserController {
   @ApiQuery({
     type: UserQuery,
   })
-  @ApiOkResponse({ description: 'return a list of users' })
-  @ApiTooManyRequestsResponse({ description: 'too many requests' })
+  @ApiOkResponse({
+    description: 'return a list of users',
+    type: GetUsersResponse,
+  })
+  @ApiTooManyRequestsResponse({
+    description: 'too many requests',
+    type: TooManyRequestsResponse,
+  })
   @UseGuards(AuthGuard('jwt'))
   @Get()
   async findAll(@Query() userQuery: UserQuery) {
     const users = await this.userService.findAll(userQuery);
 
-    return {
-      status: 200,
-      users: users,
-    };
+    return new GetUsersResponse(users).build();
   }
 }
