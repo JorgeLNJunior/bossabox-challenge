@@ -49,8 +49,8 @@ export class ToolController {
   })
   @UseGuards(AuthGuard('jwt'))
   @Get()
-  async findAll(@Query() query: ToolQuery) {
-    const tools = await this.toolService.findAll(query);
+  async findAll(@Query() query: ToolQuery, @Request() req) {
+    const tools = await this.toolService.findAll(query, req.user._id);
 
     return {
       status: 200,

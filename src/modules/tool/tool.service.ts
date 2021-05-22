@@ -26,8 +26,8 @@ export class ToolService {
     return tool.save();
   }
 
-  findAll(query: ToolQuery): Promise<ToolDocument[]> {
-    const filter = new ToolQueryBuilder(query).build();
+  findAll(query: ToolQuery, userId: string): Promise<ToolDocument[]> {
+    const filter = new ToolQueryBuilder(query, userId).build();
 
     return this.toolModel
       .find(filter, null, { limit: Number(query.limit) || 20 })
