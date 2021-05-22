@@ -20,9 +20,15 @@ import {
   ApiTags,
   ApiTooManyRequestsResponse,
 } from '@nestjs/swagger';
+import { BadRequestResponse } from 'src/shared/responses/badRequest.response';
+import { ForbiddenResponse } from 'src/shared/responses/forbidden.response';
+import { TooManyRequestsResponse } from 'src/shared/responses/tooManyRequests.response';
 
 import { CreateToolDto } from './dto/create-tool.dto';
 import { ToolQuery } from './query/toolQuery';
+import { CreateToolResponse } from './responses/createTool.response';
+import { DeleteToolResponse } from './responses/deleteTool.response';
+import { GetToolsResponse } from './responses/getTools.response';
 import { ToolService } from './tool.service';
 
 @ApiBearerAuth()
@@ -31,22 +37,34 @@ import { ToolService } from './tool.service';
 export class ToolController {
   constructor(private readonly toolService: ToolService) {}
 
-  @ApiCreatedResponse({ description: 'the tool has been created' })
-  @ApiBadRequestResponse({ description: 'validation error' })
-  @ApiTooManyRequestsResponse({ description: 'too many requests' })
+  @ApiCreatedResponse({
+    description: 'the tool has been created',
+    type: CreateToolResponse,
+  })
+  @ApiBadRequestResponse({
+    description: 'validation error',
+    type: BadRequestResponse,
+  })
+  @ApiTooManyRequestsResponse({
+    description: 'too many requests',
+    type: TooManyRequestsResponse,
+  })
   @UseGuards(AuthGuard('jwt'))
   @Post()
   async create(@Body() createToolDto: CreateToolDto, @Request() req) {
     const tool = await this.toolService.create(createToolDto, req.user._id);
 
-    return {
-      status: 201,
-      tool: tool,
-    };
+    return new CreateToolResponse(tool).build();
   }
 
-  @ApiOkResponse({ description: 'return a list of tools' })
-  @ApiTooManyRequestsResponse({ description: 'too many requests' })
+  @ApiOkResponse({
+    description: 'return a list of tools',
+    type: GetToolsResponse,
+  })
+  @ApiTooManyRequestsResponse({
+    description: 'too many requests',
+    type: TooManyRequestsResponse,
+  })
   @ApiQuery({
     type: ToolQuery,
   })
@@ -55,24 +73,30 @@ export class ToolController {
   async findAll(@Query() query: ToolQuery, @Request() req) {
     const tools = await this.toolService.findAll(query, req.user._id);
 
-    return {
-      status: 200,
-      tools: tools,
-    };
+    return new GetToolsResponse(tools).build();
   }
 
-  @ApiOkResponse({ description: 'the tool has been deleted' })
-  @ApiBadRequestResponse({ description: 'the tool was not found' })
-  @ApiForbiddenResponse({ description: 'forbidden action' })
-  @ApiTooManyRequestsResponse({ description: 'too many requests' })
+  @ApiOkResponse({
+    description: 'the tool has been deleted',
+    type: DeleteToolResponse,
+  })
+  @ApiBadRequestResponse({
+    description: 'the tool was not found',
+    type: BadRequestResponse,
+  })
+  @ApiForbiddenResponse({
+    description: 'forbidden action',
+    type: ForbiddenResponse,
+  })
+  @ApiTooManyRequestsResponse({
+    description: 'too many requests',
+    type: TooManyRequestsResponse,
+  })
   @UseGuards(AuthGuard('jwt'))
   @Delete(':id')
   async remove(@Param('id') id: string, @Request() req) {
     await this.toolService.remove(id, req.user._id);
 
-    return {
-      status: 200,
-      message: 'the tool has been deleted',
-    };
+    return new DeleteToolResponse().build();
   }
 }

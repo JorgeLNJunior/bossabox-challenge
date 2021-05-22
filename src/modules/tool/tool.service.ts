@@ -19,7 +19,7 @@ export class ToolService {
     private userService: UserService,
   ) {}
 
-  async create(createToolDto: CreateToolDto, userId: string): Promise<Tool> {
+  async create(createToolDto: CreateToolDto, userId: string) {
     const owner = await this.userService.findById(userId);
     if (!owner) throw new BadRequestException(undefined, 'user not found');
 
