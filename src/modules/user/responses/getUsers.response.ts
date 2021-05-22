@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 
+import { userExample } from '../../../shared/responses/helpers/apiExamples';
 import { UserDocument } from '../schemas/user.schema';
-import { userExample } from './helpers/apiExamples';
 
 export class GetUsersResponse {
   @ApiProperty({
