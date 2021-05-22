@@ -28,10 +28,10 @@ import { ToolService } from './tool.service';
 export class ToolController {
   constructor(private readonly toolService: ToolService) {}
 
-  @UseGuards(AuthGuard('jwt'))
   @ApiCreatedResponse({ description: 'the tool has been created' })
   @ApiBadRequestResponse({ description: 'validation error' })
   @ApiTooManyRequestsResponse({ description: 'too many requests' })
+  @UseGuards(AuthGuard('jwt'))
   @Post()
   async create(@Body() createToolDto: CreateToolDto, @Request() req) {
     const tool = await this.toolService.create(createToolDto, req.user._id);
@@ -47,6 +47,7 @@ export class ToolController {
   @ApiQuery({
     type: ToolQuery,
   })
+  @UseGuards(AuthGuard('jwt'))
   @Get()
   async findAll(@Query() query: ToolQuery) {
     const tools = await this.toolService.findAll(query);
@@ -60,6 +61,7 @@ export class ToolController {
   @ApiOkResponse({ description: 'the tool has been deleted' })
   @ApiBadRequestResponse({ description: 'the tool was not found' })
   @ApiTooManyRequestsResponse({ description: 'too many requests' })
+  @UseGuards(AuthGuard('jwt'))
   @Delete(':id')
   async remove(@Param('id') id: string) {
     await this.toolService.remove(id);
