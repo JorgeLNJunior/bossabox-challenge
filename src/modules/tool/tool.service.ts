@@ -21,7 +21,7 @@ export class ToolService {
 
     const tool = new this.toolModel({
       ...createToolDto,
-      owner: owner,
+      user_id: userId,
     });
     return tool.save();
   }
