@@ -1,6 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import * as mongoose from 'mongoose';
 
 export type ToolDocument = Tool & Document;
 
@@ -18,7 +17,7 @@ export class Tool {
   @Prop([String])
   tags: string[];
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
+  @Prop()
   user_id: string;
 }
 
