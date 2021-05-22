@@ -12,7 +12,9 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 import {
   ApiBadRequestResponse,
+  ApiBearerAuth,
   ApiCreatedResponse,
+  ApiForbiddenResponse,
   ApiOkResponse,
   ApiQuery,
   ApiTags,
@@ -23,6 +25,7 @@ import { CreateToolDto } from './dto/create-tool.dto';
 import { ToolQuery } from './query/toolQuery';
 import { ToolService } from './tool.service';
 
+@ApiBearerAuth()
 @ApiTags('Tool')
 @Controller('tools')
 export class ToolController {
@@ -60,6 +63,7 @@ export class ToolController {
 
   @ApiOkResponse({ description: 'the tool has been deleted' })
   @ApiBadRequestResponse({ description: 'the tool was not found' })
+  @ApiForbiddenResponse({ description: 'forbidden action' })
   @ApiTooManyRequestsResponse({ description: 'too many requests' })
   @UseGuards(AuthGuard('jwt'))
   @Delete(':id')

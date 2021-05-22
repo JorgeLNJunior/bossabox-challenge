@@ -18,6 +18,9 @@ async function bootstrap() {
     .setDescription('Bossabox challenge')
     .setVersion('1.0.0')
     .addTag('Tool')
+    .addTag('Auth')
+    .addTag('User')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
