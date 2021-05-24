@@ -24,6 +24,31 @@ export class UserBuilder {
     return new UserBuilder();
   }
 
+  withoutName() {
+    delete this.user.name;
+    return this;
+  }
+
+  withoutEmail() {
+    delete this.user.email;
+    return this;
+  }
+
+  withoutPassword() {
+    delete this.user.password;
+    return this;
+  }
+
+  withEmail(email: string) {
+    this.user.email = email;
+    return this;
+  }
+
+  withPassword(password: string) {
+    this.user.password = password;
+    return this;
+  }
+
   build(): FakerUser {
     return this.user;
   }

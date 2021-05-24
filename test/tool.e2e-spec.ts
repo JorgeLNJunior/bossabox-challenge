@@ -98,6 +98,15 @@ describe('ToolController (e2e)', () => {
     expect(body).toHaveProperty('tools');
   });
 
+  it('/tools (GET) should return a list of tools with querys', async () => {
+    const { status, body } = await request(app.getHttpServer())
+      .get('/tools?tag=tag&_id=609c2b58724a182c5711d9bc&title=title')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(status).toBe(200);
+    expect(body).toHaveProperty('tools');
+  });
+
   it('/tools (DELETE) should delete an tool', async () => {
     const { _id } = await TooBuiler.aTool().withUser(user._id).persist();
 
@@ -117,6 +126,21 @@ describe('ToolController (e2e)', () => {
       .set('Authorization', `Bearer ${token}`);
 
     expect(status).toBe(400);
+    expect(body).toHaveProperty('message');
+  });
+
+  it('/tools (DELETE) should delete the tool if the user is not the owner', async () => {
+    const { _id } = await TooBuiler.aTool().withUser(user._id).persist();
+    const forbiddenUser = await UserBuilder.aUser().persist();
+    const forbiddenUserToken = await new TokenGenerator(
+      forbiddenUser,
+    ).generate();
+
+    const { status, body } = await request(app.getHttpServer())
+      .delete(`/tools/${_id}`)
+      .set('Authorization', `Bearer ${forbiddenUserToken}`);
+
+    expect(status).toBe(403);
     expect(body).toHaveProperty('message');
   });
 });
