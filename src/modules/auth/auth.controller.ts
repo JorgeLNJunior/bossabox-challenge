@@ -7,9 +7,9 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { BadRequestResponse } from 'src/shared/responses/badRequest.response';
-import { UnauthorizedResponse } from 'src/shared/responses/unauthorized.response';
 
+import { BadRequestResponse } from '../../shared/responses/badRequest.response';
+import { UnauthorizedResponse } from '../../shared/responses/unauthorized.response';
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { UserService } from '../user/user.service';
 import { AuthService } from './auth.service';

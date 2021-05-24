@@ -7,8 +7,8 @@ import {
   ApiTags,
   ApiTooManyRequestsResponse,
 } from '@nestjs/swagger';
-import { TooManyRequestsResponse } from 'src/shared/responses/tooManyRequests.response';
 
+import { TooManyRequestsResponse } from '../../shared/responses/tooManyRequests.response';
 import { UserQuery } from './query/userQuery';
 import { GetUsersResponse } from './responses/getUsers.response';
 import { UserService } from './user.service';

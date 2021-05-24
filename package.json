@@ -98,7 +98,8 @@
       "**/*.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "testTimeout": 30000
   },
   "lint-staged": {
     "*.{ts,js}": "eslint --fix"

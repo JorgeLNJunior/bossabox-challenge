@@ -1,6 +1,7 @@
 import * as faker from 'faker';
 import { connect, connection, model } from 'mongoose';
 
+import { mongoConstants } from '../../src/config/constants';
 import { Tool, ToolSchema } from '../../src/modules/tool/schemas/tool.schema';
 
 export class TooBuiler {
@@ -35,12 +36,17 @@ export class TooBuiler {
     return this;
   }
 
+  withUser(id: string) {
+    this.tool.user_id = id;
+    return this;
+  }
+
   build(): FakeTool {
     return this.tool;
   }
 
   async persist() {
-    await connect(process.env.MONGO_URL, {
+    await connect(mongoConstants.uri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
@@ -59,4 +65,5 @@ interface FakeTool {
   description?: string;
   link?: string;
   tags?: string[];
+  user_id?: string;
 }

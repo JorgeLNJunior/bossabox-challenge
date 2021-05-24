@@ -20,10 +20,10 @@ import {
   ApiTags,
   ApiTooManyRequestsResponse,
 } from '@nestjs/swagger';
-import { BadRequestResponse } from 'src/shared/responses/badRequest.response';
-import { ForbiddenResponse } from 'src/shared/responses/forbidden.response';
-import { TooManyRequestsResponse } from 'src/shared/responses/tooManyRequests.response';
 
+import { BadRequestResponse } from '../../shared/responses/badRequest.response';
+import { ForbiddenResponse } from '../../shared/responses/forbidden.response';
+import { TooManyRequestsResponse } from '../../shared/responses/tooManyRequests.response';
 import { CreateToolDto } from './dto/create-tool.dto';
 import { ToolQuery } from './query/toolQuery';
 import { CreateToolResponse } from './responses/createTool.response';
