@@ -1,4 +1,11 @@
-import { Body, Controller, Post, Request, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  Post,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import {
   ApiBadRequestResponse,
@@ -46,6 +53,7 @@ export class AuthController {
     type: UnauthorizedResponse,
   })
   @UseGuards(AuthGuard('local'))
+  @HttpCode(200)
   @Post('login')
   async login(@Body() loginDto: LoginDto, @Request() req) {
     const token = await this.authService.login(req.user);

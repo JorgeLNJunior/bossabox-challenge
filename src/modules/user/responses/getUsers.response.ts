@@ -7,21 +7,21 @@ export class GetUsersResponse {
   @ApiProperty({
     default: 200,
   })
-  status: number;
+  statusCode: number;
 
   @ApiProperty({
     example: [userExample],
   })
   users: UserDocument[];
 
-  constructor(users: UserDocument[], status?: number) {
-    this.status = status | 200;
+  constructor(users: UserDocument[], statusCode?: number) {
+    this.statusCode = statusCode | 200;
     this.users = users;
   }
 
   build() {
     return {
-      status: this.status,
+      statusCode: this.statusCode,
       users: this.users,
     };
   }

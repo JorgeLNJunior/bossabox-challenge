@@ -13,7 +13,7 @@ export class UserLoginResponse {
 
   constructor(token: string, statusCode?: number) {
     this.access_token = token;
-    this.statusCode = statusCode || 201;
+    this.statusCode = statusCode || 200;
   }
 
   build() {
