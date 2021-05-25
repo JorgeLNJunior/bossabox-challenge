@@ -21,12 +21,12 @@ jobs:
       with:
         node-version: '14.x'
     - run: npm ci
-    - run: npm run test:e2e --coverage
+    - run: npm run test:e2e -- --coverage
 
     - name: Coveralls
       uses: coverallsapp/github-action@master
       with:
-        github-token: ${{ secrets.TOKEN }}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
         path-to-lcov:  ./test/coverage/lcov.info
 
     services:
