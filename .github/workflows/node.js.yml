@@ -27,7 +27,7 @@ jobs:
       uses: coverallsapp/github-action@master
       with:
         github-token: ${{ secrets.TOKEN }}
-        path-to-lcov:  ./test/coverage/lcov.info
+        path-to-lcov:  ${{ GITHUB_WORKSPACE }}/test/coverage/lcov.info
 
     services:
       mongo:
