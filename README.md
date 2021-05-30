@@ -46,7 +46,7 @@ Informações básicas sobre as rotas da aplicação.
 ## Tecnologias
 Este projeto foi construído com as seguintes tecnologias:
 - [Node.js »](https://nodejs.org)
-- [Nest.js »](https://docs.nestjs.com)
+- [Nest.js »](https://nestjs.com)
 - [Typescript »](https://www.typescriptlang.org)
 - [Jest »](https://jestjs.io)
 - [GitHub Actions »](https://github.com/features/actions)
@@ -62,7 +62,7 @@ Este projeto foi construído com as seguintes tecnologias:
   1. Clone o projeto: `git clone https://github.com/JorgeLNJunior/bossabox-challenge.git`
   2. Instale as dependências: `npm i`
   3. Renomeie o arquivo `.env.example` para `.env`
-  4. Para iniciar a aplicação execute `npm start:dev` ou `npm run docker:up`. Para os testes execute `npm test:e2e`
+  4. Para iniciar a aplicação execute `npm start:dev` ou `npm run docker:build && npm run docker:up`. Para os testes execute `npm test:e2e`
 
 ## Licença
 Projeto sob a licença [MIT »](https://github.com/JorgeLNJunior/bossabox-challenge/blob/master/LICENSE.md)
