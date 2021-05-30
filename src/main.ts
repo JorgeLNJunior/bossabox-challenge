@@ -6,6 +6,7 @@ import * as expressWinston from 'express-winston';
 import * as helmet from 'helmet';
 import * as winston from 'winston';
 
+import { version } from '../package.json';
 import { MainModule } from './main.module';
 
 async function bootstrap() {
@@ -16,7 +17,7 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('Very Useful Tools to Remember')
     .setDescription('Bossabox challenge')
-    .setVersion('1.0.0')
+    .setVersion(version || '1.0.0')
     .addTag('Tool')
     .addTag('Auth')
     .addTag('User')
