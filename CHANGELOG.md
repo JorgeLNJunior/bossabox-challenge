@@ -1,3 +1,9 @@
+#### 1.0.4 (2021-06-07)
+
+##### Build System / Dependencies
+
+* **fix:**  corrigir o build do projeto (2a0c6736)
+
 #### 1.0.3 (2021-06-07)
 
 ##### Build System / Dependencies
