@@ -18,7 +18,7 @@ services:
     command: [
       "./wait-for-it.sh",
       "mongo-container:27017",
-      "--timeout=300",
+      "--timeout=30",
       "--",
       "npm",
       "run",
@@ -34,4 +34,4 @@ services:
     depends_on:
       - mongo
     environment:
-      MONGO_URL: mongodb://mongo-container:27017/app
+      MONGO_URI: mongodb://mongo-container:27017/app
