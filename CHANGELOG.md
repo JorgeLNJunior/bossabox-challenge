@@ -1,3 +1,13 @@
+#### 1.0.2 (2021-06-07)
+
+##### Build System / Dependencies
+
+* **fix:**  corrigir o caminho do arquivo main (f846922e)
+
+##### Bug Fixes
+
+* **dev:**  corrigir o docker compose (28760ac6)
+
 #### 1.0.1 (2021-05-30)
 
 ##### Build System / Dependencies
